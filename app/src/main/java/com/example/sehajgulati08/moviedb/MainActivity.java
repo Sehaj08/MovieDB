@@ -23,7 +23,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
 implements NavigationView.OnNavigationItemSelectedListener{
@@ -43,7 +42,6 @@ implements NavigationView.OnNavigationItemSelectedListener{
      */
     private ViewPager mViewPager;
     private TabLayout tabLayout;
-    private static final String ARG_SECTION_NUMBER = "section_number";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,7 +145,7 @@ implements NavigationView.OnNavigationItemSelectedListener{
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter implements NowPlayingFragment.NowPlayingMoviesFragmentListItemClick {
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -157,32 +155,11 @@ implements NavigationView.OnNavigationItemSelectedListener{
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            if(position == 0 ){
-
-//                NowPlayingFragment nowPlayingFragment = new NowPlayingFragment();
-                NowPlayingFragment nowPlayingFragment = (NowPlayingFragment)
-                        getSupportFragmentManager().findFragmentById(R.id.fragmentMain);
-//                getSupportFragmentManager().beginTransaction().replace(R.id.containerLayout, nowPlayingFragment).commit();
-
-                nowPlayingFragment.setNowPlayingFragmentListItemClick(this);
-
-
-                return nowPlayingFragment;
-            }else if(position == 1){
-                PlaceholderFragment fragment = new PlaceholderFragment();
-                Bundle args = new Bundle();
-                args.putInt(ARG_SECTION_NUMBER, 2);
-                fragment.setArguments(args);
-                return fragment;
-            }else if(position == 2){
-                PlaceholderFragment fragment = new PlaceholderFragment();
-                Bundle args = new Bundle();
-                args.putInt(ARG_SECTION_NUMBER, 3);
-                fragment.setArguments(args);
-                return fragment;
-            }
-            return null;
-//            return PlaceholderFragment.newInstance(position + 1);
+//            if(position == 0 ){
+//                NowPlayingFragment courseDetailFragment = (NowPlayingFragment)
+//                        getFragmentManager().findFragmentById(R.id.fragmentMain);
+//            }
+            return PlaceholderFragment.newInstance(position + 1);
         }
 
         @Override
@@ -202,11 +179,6 @@ implements NavigationView.OnNavigationItemSelectedListener{
                     return "SECTION 3";
             }
             return null;
-        }
-
-        @Override
-        public void onListItemClicked(NowPlayingMovies nowPlayingMovies) {
-            Toast.makeText(MainActivity.this, "Item Clicked", Toast.LENGTH_SHORT).show();
         }
     }
     @SuppressWarnings("StatementWithEmptyBody")
